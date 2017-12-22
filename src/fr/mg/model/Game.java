@@ -33,10 +33,10 @@ public class Game {
         players = new ArrayList<Player>();
         if (playerCount == 1){
             players.add(new AIPlayer("Bot"));
-            players.add(new HumanPlayer("fr.mg.model.Player"));
+            players.add(new HumanPlayer("Player"));
         } else if (playerCount == 2){
-            players.add(new HumanPlayer("fr.mg.model.Player 1"));
-            players.add(new HumanPlayer("fr.mg.model.Player 2"));
+            players.add(new HumanPlayer("Player 1"));
+            players.add(new HumanPlayer("Player 2"));
         }
         System.out.println("Init sucessful");
     }
