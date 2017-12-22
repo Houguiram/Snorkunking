@@ -1,5 +1,7 @@
 package fr.mg.model;
 
+import fr.mg.vue.IHM;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -38,6 +40,7 @@ public class Game {
             players.add(new HumanPlayer("Player 1"));
             players.add(new HumanPlayer("Player 2"));
         }
+        IHM vue = new IHM();
         System.out.println("Init sucessful");
     }
 
