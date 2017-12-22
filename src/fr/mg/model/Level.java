@@ -11,19 +11,19 @@ public class Level {
         Random rand = new Random();
         int treasureCount;
         switch (caveType) { // 3 types of caves
-            case 1:
+            case 1: //between 1 and 3 treasures
                 treasureCount = rand.nextInt(3 - 1 + 1) + 1;
                 break;
-            case 2:
+            case 2: //between 5 and 8 treasures
                 treasureCount = rand.nextInt(8 - 5 + 1) + 5;
                 break;
-            case 3:
+            case 3: //between 10 and 12 treasures
                 treasureCount = rand.nextInt(12 - 10 + 1) + 10;
                 break;
             default:
                 throw new IllegalArgumentException(Integer.toString(caveType));
         }
-        chests = new ArrayList<Chest>();
+        chests = new ArrayList<>();
         chests.add(new Chest(treasureCount));
     }
 
