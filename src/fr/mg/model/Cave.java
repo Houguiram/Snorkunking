@@ -34,6 +34,10 @@ public class Cave {
         return levels;
     }
 
+    public int getSize(){
+        return levels.size();
+    }
+
     public void setLevels(ArrayList<Level> levels) {
         this.levels = levels;
     }

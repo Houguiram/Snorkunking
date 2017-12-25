@@ -40,8 +40,10 @@ public class Game {
             players.add(new HumanPlayer("Player 1"));
             players.add(new HumanPlayer("Player 2"));
         }
-        IHM vue = new IHM();
         System.out.println("Init sucessful");
+    }
+    public int[] getCavesSizes(){
+        return new int[]{cave1.getSize(), cave2.getSize(), cave3.getSize()};
     }
 
     public void calculateScore() {
