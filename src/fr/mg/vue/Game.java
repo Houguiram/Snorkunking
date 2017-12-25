@@ -29,8 +29,12 @@ public class Game extends JPanel {
         g.drawString("Cave 2", textX, c2Y + (c2H / 2));
         g.drawString("Cave 3", textX, c3Y + (c3H / 2));
 
+        // Players
 
-
+        g.setColor(Color.red);
+        g.fillOval(x+50,c1Y,30,30);
+        g.setColor(Color.magenta);
+        g.fillOval(x+220,c1Y,30,30);
 
 
     }
