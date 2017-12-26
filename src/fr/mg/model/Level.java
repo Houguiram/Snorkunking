@@ -27,8 +27,8 @@ public class Level {
         chests.add(new Chest(treasureCount));
     }
 
-    public ArrayList<Chest> getChests() {
-        return chests;
+    public int getChestCount() {
+        return chests.size();
     }
 
     public void setChests(ArrayList<Chest> chests) {

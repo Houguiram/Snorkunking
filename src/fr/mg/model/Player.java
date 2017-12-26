@@ -2,13 +2,21 @@ package fr.mg.model;
 
 public class Player {
 
-    private String name;
+    private int position;
 
     public int treasureCount;
 
-    public Player(String vname){
-        name = vname;
+
+    public Player(){
+        position = 0;
         treasureCount = 0;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 }

@@ -38,7 +38,11 @@ public class Cave {
         return levels.size();
     }
 
-    public void setLevels(ArrayList<Level> levels) {
-        this.levels = levels;
+    public void removeEmpty(){
+        for (Level level : levels){
+            if (level.getChestCount() == 0){
+                levels.remove(level);
+            }
+        }
     }
 }
