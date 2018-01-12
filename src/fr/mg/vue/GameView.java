@@ -10,12 +10,12 @@ public class GameView extends JPanel {
     private int player1Pos;
     private int player2Pos;
 
-    public GameView(int cave1, int cave2, int cave3) {
+    public GameView(int cave1, int cave2, int cave3, int player1Pos,int player2Pos) {
         this.cave1 = cave1;
         this.cave2 = cave2;
         this.cave3 = cave3;
-        this.player1Pos = 0;
-        this.player2Pos = 0;
+        this.player1Pos = player1Pos;
+        this.player2Pos = player2Pos;
     }
 
 

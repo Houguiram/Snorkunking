@@ -62,8 +62,8 @@ public class Game extends Observable {
     }
 
     public void launchGame() {
-        stage = 0;
-        while (stage < 3) {
+        stage = 1;
+        while (stage < 4) {
             while (oxygen > 0) {
                 playTurn();
                 this.updateObservers();
@@ -99,6 +99,11 @@ public class Game extends Observable {
         state.add(cave3.getSize());
         // 6 : stage
         state.add(stage);
+        // 7 : position du joueur 1
+        state.add(players.get(0).getPosition());
+        // 8 : position du joueur 2
+        state.add(players.get(1).getPosition());
+
         this.setChanged();
 
         this.notifyObservers(state);

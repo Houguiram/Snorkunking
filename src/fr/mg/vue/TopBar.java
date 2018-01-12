@@ -7,11 +7,13 @@ public class TopBar extends JPanel {
     String player1Name;
     String player2Name;
     int oxygen;
+    int stage;
 
-    public TopBar(String player1Name, String player2Name, int oxygen) {
+    public TopBar(String player1Name, String player2Name, int oxygen, int stage) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         this.oxygen = oxygen;
+        this.stage = stage;
     }
 
     public void paintComponent(Graphics g) {
@@ -23,6 +25,7 @@ public class TopBar extends JPanel {
         int y = 15;
         g.setColor(Color.BLACK);
         g.drawString("Scores", 30, y);
+        g.drawString("Stage "+stage+"/3",30, y+20);
         g.drawString(player1Name+" :", 150, y);
         g.drawString("XX", 180, y);
         g.drawString(player2Name+" :", 300, y);
