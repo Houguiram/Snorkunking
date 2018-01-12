@@ -51,9 +51,9 @@ public class GameView extends JPanel {
         // Players
 
         g.setColor(Color.red);
-        g.fillOval(x+50,c1Y,14,14);
+        g.fillOval(x+50,c1Y+(player1Pos*14),14,14);
         g.setColor(Color.magenta);
-        g.fillOval(x+220,c1Y,14,14);
+        g.fillOval(x+220,c1Y+(player2Pos*14),14,14);
 
 
     }
