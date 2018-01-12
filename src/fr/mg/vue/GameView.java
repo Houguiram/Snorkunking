@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends JPanel {
-    int cave1;
-    int cave2;
-    int cave3;
-    int player1Pos;
-    int player2Pos;
+    private int cave1;
+    private int cave2;
+    private int cave3;
+    private int player1Pos;
+    private int player2Pos;
 
     public GameView(int cave1, int cave2, int cave3) {
         this.cave1 = cave1;
