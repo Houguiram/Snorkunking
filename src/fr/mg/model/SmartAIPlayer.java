@@ -2,8 +2,7 @@ package fr.mg.model;
 
 public class SmartAIPlayer extends AIPlayer {
 
-
-    public SmartAIPlayer(Level vlevel) {
-        super(vlevel);
+    public SmartAIPlayer(String vname) {
+        super(vname);
     }
 }

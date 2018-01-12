@@ -1,7 +1,8 @@
 package fr.mg.model;
 
 public class AIPlayer extends Player {
-    public AIPlayer(Level vlevel) {
-        super(vlevel);
+
+    public AIPlayer(String vname) {
+        super(vname);
     }
 }

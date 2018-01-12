@@ -3,7 +3,22 @@ package fr.mg.vue;
 import javax.swing.*;
 import java.awt.*;
 
-public class Game extends JPanel {
+public class GameView extends JPanel {
+    int cave1;
+    int cave2;
+    int cave3;
+    int player1Pos;
+    int player2Pos;
+
+    public GameView(int cave1, int cave2, int cave3) {
+        this.cave1 = cave1;
+        this.cave2 = cave2;
+        this.cave3 = cave3;
+        this.player1Pos = 0;
+        this.player2Pos = 0;
+    }
+
+
     public void paintComponent(Graphics g) {
         // Setup caves sizes
         int x = 100, w = 300;

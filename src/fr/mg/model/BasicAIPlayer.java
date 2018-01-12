@@ -2,7 +2,7 @@ package fr.mg.model;
 
 public class BasicAIPlayer extends AIPlayer {
 
-    public BasicAIPlayer(Level vlevel) {
-        super(vlevel);
+    public BasicAIPlayer(String vname) {
+        super(vname);
     }
 }
