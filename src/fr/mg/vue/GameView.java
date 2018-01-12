@@ -30,11 +30,7 @@ public class GameView extends JPanel {
         int c1Y = 10, c1H = cave1 * 14;
         int c2Y = c1H + c1Y + 5, c2H = cave2 * 14;
         int c3Y = c2Y + c2H + 5, c3H = cave3 * 14;
-/*
-        int c1Y = 10, c1H = 250;
-        int c2Y = c1H + c1Y + 5, c2H = 100;
-        int c3Y = c2Y + c2H + 5, c3H = 30;
-*/
+
         g.setColor(Color.yellow);
 
         // Cave 1
@@ -55,9 +51,9 @@ public class GameView extends JPanel {
         // Players
 
         g.setColor(Color.red);
-        g.fillOval(x+50,c1Y,30,30);
+        g.fillOval(x+50,c1Y,14,14);
         g.setColor(Color.magenta);
-        g.fillOval(x+220,c1Y,30,30);
+        g.fillOval(x+220,c1Y,14,14);
 
 
     }
