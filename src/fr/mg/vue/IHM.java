@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
 import fr.mg.model.Game;
 
 public class IHM extends JFrame {
@@ -26,19 +27,19 @@ public class IHM extends JFrame {
         this.game = new Game();
         this.game.addObserver(new Observer() {
             public void update(Observable o, Object state) {
-                gameState = (ArrayList)state;
+                gameState = (ArrayList) state;
             }
         });
         game.init(2);
-        System.out.println("after: "+gameState);
+        System.out.println("after: " + gameState);
 
         // Setup window's content
         container.setBackground(Color.blue);
         container.setLayout(new BorderLayout());
-        container.add(new TopBar(), BorderLayout.NORTH);
+        container.add(new TopBar((String) gameState.get(1), (String) gameState.get(2), (int) gameState.get(0)), BorderLayout.NORTH);
         // On crée une vue avec la taille des caves
 
-        container.add(new GameView((int)gameState.get(3),(int)gameState.get(4),(int)gameState.get(5)), BorderLayout.CENTER);
+        container.add(new GameView((int) gameState.get(3), (int) gameState.get(4), (int) gameState.get(5)), BorderLayout.CENTER);
 
         this.setContentPane(container);
 

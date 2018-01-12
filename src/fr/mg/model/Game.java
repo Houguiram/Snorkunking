@@ -1,4 +1,5 @@
 package fr.mg.model;
+
 import fr.mg.vue.IHM;
 
 import java.util.ArrayList;
