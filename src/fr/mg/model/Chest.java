@@ -16,8 +16,5 @@ public class Chest {
         this.treasureCount = vtreasureCount;
     }
 
-    public void openChest(Player player) {
-        player.treasureCount += treasureCount;
-    }
 
 }

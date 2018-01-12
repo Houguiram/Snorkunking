@@ -30,12 +30,32 @@ public class Game extends Observable {
         ArrayList<Player> playerOrder = players;
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
 
-        for (Player player : playerOrder){
-
+        for (Player player : playerOrder) {
+            // On attend une action valide
+            boolean validMove = false;
+            while (!validMove) {
+                switch (player.getNextMove()) {
+                    case UP:
+                        if (player.getPosition() > 0) {
+                            player.setPosition(player.getPosition() - 1);
+                            validMove = true;
+                        }
+                        break;
+                    case DOWN:
+                        if (player.getPosition() < (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+                            player.setPosition(player.getPosition() + 1);
+                            validMove = true;
+                        }
+                        break;
+                    case PICKUP:
+                        if (getPlayerLevel(player).getChestCount() > 0) {
+                            player.pickupChest(getPlayerLevel(player));
+                            validMove = true;
+                        }
+                        break;
+                }
+            }
         }
-
-
-
     }
 
     public void init(int playerCount) {
@@ -60,9 +80,24 @@ public class Game extends Observable {
         oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
 
         // Lancement du jeu
-        //launchGame();
+        launchGame();
         this.updateObservers();
         System.out.println("Init sucessful");
+    }
+
+    public Level getPlayerLevel(Player player) {
+        int position = player.getPosition();
+        if (position < 0 || position > (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            if (position < cave1.getSize()) {
+                return cave1.getLevel(position);
+            } else if (position < cave1.getSize() + cave2.getSize() - 1) {
+                return cave2.getLevel(position - cave1.getSize());
+            } else {
+                return cave3.getLevel(position - cave1.getSize() - cave2.getSize());
+            }
+        }
     }
 
     public void calculateScore() {
@@ -84,7 +119,7 @@ public class Game extends Observable {
             oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
 
             // On replace tous les joueurs en haut
-            for (Player player : players){
+            for (Player player : players) {
                 player.setPosition(0);
             }
 

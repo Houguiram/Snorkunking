@@ -30,8 +30,8 @@ public class Cave {
         }
     }
 
-    public ArrayList<Level> getLevels() {
-        return levels;
+    public Level getLevel(int index) {
+        return levels.get(index);
     }
 
     public int getSize(){
