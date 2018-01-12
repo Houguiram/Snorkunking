@@ -3,6 +3,7 @@ package fr.mg.model;
 import fr.mg.vue.IHM;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Observable;
 
 public class Game extends Observable {
@@ -25,8 +26,14 @@ public class Game extends Observable {
 
 
     public void playTurn() {
+        // Le joueur le plus bas joue en premier
+        ArrayList<Player> playerOrder = players;
+        playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
 
-        Player currentPlayer = null;
+        for (Player player : playerOrder){
+
+        }
+
 
 
     }
@@ -75,6 +82,11 @@ public class Game extends Observable {
 
             // On recalcule l'oxygen entre chaque stage
             oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+
+            // On replace tous les joueurs en haut
+            for (Player player : players){
+                player.setPosition(0);
+            }
 
             // On passe au stage suivant
             stage++;

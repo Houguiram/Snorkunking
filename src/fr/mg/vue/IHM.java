@@ -15,7 +15,7 @@ public class IHM extends JFrame {
     private ArrayList gameState;
 
     public IHM() {
-        // Setup the window
+        // Setup de la fenêtre
         this.setSize(500, 500);
         this.setTitle("Snorkunking");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,15 +33,17 @@ public class IHM extends JFrame {
         game.init(2);
         System.out.println("after: " + gameState);
 
-        // Setup window's content
+        // Setup du layout de la fenêtre de jeu
         container.setBackground(Color.blue);
         container.setLayout(new BorderLayout());
+
+        // On crée une barre d'information avec les infos des joueurs et l'oxygène
         container.add(new TopBar((String) gameState.get(1),
                 (String) gameState.get(2),
                 (int) gameState.get(0),
                 (int) gameState.get(6)), BorderLayout.NORTH);
-        // On crée une vue avec la taille des caves
 
+        // On crée une vue du jeu avec les caves et les joueurs
         container.add(new GameView((int) gameState.get(3),
                 (int) gameState.get(4),
                 (int) gameState.get(5),
