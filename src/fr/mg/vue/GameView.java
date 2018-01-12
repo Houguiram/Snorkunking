@@ -21,12 +21,20 @@ public class GameView extends JPanel {
 
     public void paintComponent(Graphics g) {
         // Setup caves sizes
+        System.out.println("Taille cave 1 : "+cave1);
+        System.out.println("Taille cave 2 : "+cave2);
+        System.out.println("Taille cave 3 : "+cave3);
+
         int x = 100, w = 300;
         int textX = x + (w / 2) - 15;
+        int c1Y = 10, c1H = cave1 * 14;
+        int c2Y = c1H + c1Y + 5, c2H = cave2 * 14;
+        int c3Y = c2Y + c2H + 5, c3H = cave3 * 14;
+/*
         int c1Y = 10, c1H = 250;
-        int c2Y = 265, c2H = 100;
-        int c3Y = 370, c3H = 30;
-
+        int c2Y = c1H + c1Y + 5, c2H = 100;
+        int c3Y = c2Y + c2H + 5, c3H = 30;
+*/
         g.setColor(Color.yellow);
 
         // Cave 1
