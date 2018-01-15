@@ -82,6 +82,12 @@ public class Game extends Observable {
 
         // Lancement du jeu
         t = new Thread(new LaunchGame());
+        t.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //launchGame();
         this.updateObservers();
         System.out.println("Init sucessful");

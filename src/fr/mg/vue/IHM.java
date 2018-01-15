@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
 import fr.mg.model.Game;
 
@@ -31,27 +32,37 @@ public class IHM extends JFrame {
             }
         });
         game.init(2);
-        System.out.println("after: " + gameState);
+        while (true) {
+            System.out.println("gameState : "+gameState);
+            this.invalidate();
+            container = new JPanel();
+            // Setup du layout de la fenêtre de jeu
+            container.setBackground(Color.blue);
+            container.setLayout(new BorderLayout());
 
-        // Setup du layout de la fenêtre de jeu
-        container.setBackground(Color.blue);
-        container.setLayout(new BorderLayout());
+            // On crée une barre d'information avec les infos des joueurs et l'oxygène
+            container.add(new TopBar((String) gameState.get(1),
+                    (String) gameState.get(2),
+                    (int) gameState.get(0),
+                    (int) gameState.get(6)), BorderLayout.NORTH);
 
-        // On crée une barre d'information avec les infos des joueurs et l'oxygène
-        container.add(new TopBar((String) gameState.get(1),
-                (String) gameState.get(2),
-                (int) gameState.get(0),
-                (int) gameState.get(6)), BorderLayout.NORTH);
+            // On crée une vue du jeu avec les caves et les joueurs
+            container.add(new GameView((int) gameState.get(3),
+                    (int) gameState.get(4),
+                    (int) gameState.get(5),
+                    (int) gameState.get(7),
+                    (int) gameState.get(8)), BorderLayout.CENTER);
 
-        // On crée une vue du jeu avec les caves et les joueurs
-        container.add(new GameView((int) gameState.get(3),
-                (int) gameState.get(4),
-                (int) gameState.get(5),
-                (int) gameState.get(7),
-                (int) gameState.get(8)), BorderLayout.CENTER);
+            this.setContentPane(container);
+            this.validate();
+            this.repaint();
 
-        this.setContentPane(container);
-
-        this.setVisible(true);
+            this.setVisible(true);
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
