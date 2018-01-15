@@ -39,6 +39,10 @@ public abstract class Player {
         return lost;
     }
 
+    public int chestCount(){
+        return chests.size();
+    }
+
     public abstract Move getNextMove();
 
 }

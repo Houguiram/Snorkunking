@@ -39,18 +39,21 @@ public class Game extends Observable {
                     case UP:
                         if (player.getPosition() > 0) {
                             player.setPosition(player.getPosition() - 1);
+                            oxygen -= (1 + player.chestCount());
                             validMove = true;
                         }
                         break;
                     case DOWN:
                         if (player.getPosition() < (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
                             player.setPosition(player.getPosition() + 1);
+                            oxygen -= (1 + player.chestCount());
                             validMove = true;
                         }
                         break;
                     case PICKUP:
                         if (getPlayerLevel(player).getChestCount() > 0) {
                             player.pickupChest(getPlayerLevel(player));
+                            oxygen--;
                             validMove = true;
                         }
                         break;
