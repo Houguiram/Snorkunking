@@ -1,7 +1,5 @@
 package fr.mg.model;
 
-import fr.mg.vue.IHM;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Observable;
@@ -15,6 +13,8 @@ public class Game extends Observable {
     private Cave cave3;
     private int stage;
     private Thread t;
+    private int currentInput = 0;
+
 
     public Game() {
         oxygen = 0;
@@ -35,7 +35,7 @@ public class Game extends Observable {
             // On attend une action valide
             boolean validMove = false;
             while (!validMove) {
-                switch (player.getNextMove()) {
+                switch (player.getNextMove(currentInput)) {
                     case UP:
                         if (player.getPosition() > 0) {
                             player.setPosition(player.getPosition() - 1);
@@ -57,7 +57,15 @@ public class Game extends Observable {
                             validMove = true;
                         }
                         break;
+                    case NONE:
+                        break;
                 }
+            }
+            this.updateObservers(); // On met à jour la vue
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -81,17 +89,12 @@ public class Game extends Observable {
         }
 
         // Oxygen = 2 * nbr de niveaux
-        oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+        oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize()) - 30;
 
         // Lancement du jeu
         t = new Thread(new LaunchGame());
         t.start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //launchGame();
+
         this.updateObservers();
         System.out.println("Init sucessful");
     }
@@ -117,12 +120,17 @@ public class Game extends Observable {
     public void launchGame() {
         stage = 1;
         while (stage < 4) {
+            this.updateObservers();
             while (oxygen > 0) {
                 System.out.println("Début du tour");
                 playTurn();
                 System.out.println("Tour joué !");
-                this.updateObservers();
             }
+            // On replace tous les joueurs en haut
+            for (Player player : players) {
+                player.setPosition(0);
+            }
+
             // On met à jour les niveaux
             cave1.removeEmpty();
             cave2.removeEmpty();
@@ -131,14 +139,8 @@ public class Game extends Observable {
             // On recalcule l'oxygen entre chaque stage
             oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
 
-            // On replace tous les joueurs en haut
-            for (Player player : players) {
-                player.setPosition(0);
-            }
-
             // On passe au stage suivant
             stage++;
-            this.updateObservers();
         }
         System.out.println("Partie terminée !");
     }
@@ -171,8 +173,18 @@ public class Game extends Observable {
 
     class LaunchGame implements Runnable {
         public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             launchGame();
         }
+    }
+
+
+    public void setCurrentInput(int currentInput) {
+        this.currentInput = currentInput;
     }
 
 }

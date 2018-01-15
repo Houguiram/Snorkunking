@@ -3,6 +3,8 @@ package fr.mg.vue;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -22,18 +24,15 @@ public class IHM extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setFocusable(true);
+        this.addKeyListener(new ClavierListener());
 
         // Lancement du jeu
 
         this.game = game;
-        this.game.addObserver(new Observer() {
-            public void update(Observable o, Object state) {
-                gameState = (ArrayList) state;
-            }
-        });
+        this.game.addObserver((o, state) -> gameState = (ArrayList) state);
         game.init(2);
         while (true) {
-            System.out.println("gameState : "+gameState);
             this.invalidate();
             container = new JPanel();
             // Setup du layout de la fenêtre de jeu
@@ -52,7 +51,7 @@ public class IHM extends JFrame {
                     (int) gameState.get(5),
                     (int) gameState.get(7),
                     (int) gameState.get(8)), BorderLayout.CENTER);
-
+            
             this.setContentPane(container);
             this.validate();
             this.repaint();
@@ -63,6 +62,29 @@ public class IHM extends JFrame {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+
+    private class ClavierListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        public void keyReleased(KeyEvent e) {
+            game.setCurrentInput(e.getKeyCode());
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            game.setCurrentInput(0);
+            System.out.println("Touche pressée : "+e.getKeyCode());
         }
     }
 }

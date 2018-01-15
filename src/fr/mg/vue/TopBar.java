@@ -36,7 +36,6 @@ public class TopBar extends JPanel {
 
         //Oxygen bar
         g.setColor(Color.cyan);
-        System.out.println("oxygen :"+oxygen);
         g.fillRoundRect(143, y + 8, oxygen*4, 15, 5, 5);
     }
 

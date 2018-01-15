@@ -43,6 +43,6 @@ public abstract class Player {
         return chests.size();
     }
 
-    public abstract Move getNextMove();
+    public abstract Move getNextMove(int input);
 
 }

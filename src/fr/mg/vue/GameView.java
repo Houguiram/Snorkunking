@@ -21,9 +21,6 @@ public class GameView extends JPanel {
 
     public void paintComponent(Graphics g) {
         // Setup caves sizes
-        System.out.println("Taille cave 1 : "+cave1);
-        System.out.println("Taille cave 2 : "+cave2);
-        System.out.println("Taille cave 3 : "+cave3);
 
         int x = 100, w = 300;
         int textX = x + (w / 2) - 15;

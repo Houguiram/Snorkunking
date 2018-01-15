@@ -39,10 +39,12 @@ public class Cave {
     }
 
     public void removeEmpty(){
+        ArrayList<Level> empty = new ArrayList<>();
         for (Level level : levels){
             if (level.getChestCount() == 0){
-                levels.remove(level);
+                empty.add(level);
             }
         }
+        levels.removeAll(empty);
     }
 }

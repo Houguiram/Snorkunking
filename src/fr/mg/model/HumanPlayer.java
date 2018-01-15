@@ -8,13 +8,18 @@ public class HumanPlayer extends Player {
         super(vname);
     }
 
-    public Move getNextMove() {
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public Move getNextMove(int input) {
+        switch (input){
+            case 38 :
+                return Move.UP;
+            case 40 :
+                return Move.DOWN;
+            case 32 :
+                return Move.PICKUP;
+
+                default:
+                    return Move.NONE;
         }
-        return Move.DOWN;
     }
 }
 

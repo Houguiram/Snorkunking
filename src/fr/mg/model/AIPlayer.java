@@ -7,7 +7,7 @@ public class AIPlayer extends Player {
     }
 
     @Override
-    public Move getNextMove() {
+    public Move getNextMove(int i) {
         return Move.DOWN;
     }
 }
