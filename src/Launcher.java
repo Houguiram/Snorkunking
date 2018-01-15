@@ -5,7 +5,8 @@ public class Launcher {
 
     public static void main(String[] args) {
         System.out.println("Lancement du jeu");
-        IHM vue = new IHM();
+        Game game = new Game();
+        IHM vue = new IHM(game);
 
     }
 

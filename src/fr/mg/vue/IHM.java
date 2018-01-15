@@ -14,7 +14,7 @@ public class IHM extends JFrame {
     private Game game;
     private ArrayList gameState;
 
-    public IHM() {
+    public IHM(Game game) {
         // Setup de la fenêtre
         this.setSize(500, 500);
         this.setTitle("Snorkunking");
@@ -24,7 +24,7 @@ public class IHM extends JFrame {
 
         // Lancement du jeu
 
-        this.game = new Game();
+        this.game = game;
         this.game.addObserver(new Observer() {
             public void update(Observable o, Object state) {
                 gameState = (ArrayList) state;

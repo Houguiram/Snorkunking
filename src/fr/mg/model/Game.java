@@ -14,6 +14,7 @@ public class Game extends Observable {
     private Cave cave2;
     private Cave cave3;
     private int stage;
+    private Thread t;
 
     public Game() {
         oxygen = 0;
@@ -30,10 +31,9 @@ public class Game extends Observable {
         ArrayList<Player> playerOrder = players;
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
 
-        for (Player player : playerOrder){
+        for (Player player : playerOrder) {
 
         }
-
 
 
     }
@@ -60,6 +60,7 @@ public class Game extends Observable {
         oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
 
         // Lancement du jeu
+        t = new Thread(new LaunchGame());
         //launchGame();
         this.updateObservers();
         System.out.println("Init sucessful");
@@ -72,7 +73,9 @@ public class Game extends Observable {
         stage = 1;
         while (stage < 4) {
             while (oxygen > 0) {
+                System.out.println("Début du tour");
                 playTurn();
+                System.out.println("Tour joué !");
                 this.updateObservers();
             }
             // On met à jour les niveaux
@@ -84,7 +87,7 @@ public class Game extends Observable {
             oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
 
             // On replace tous les joueurs en haut
-            for (Player player : players){
+            for (Player player : players) {
                 player.setPosition(0);
             }
 
@@ -119,6 +122,12 @@ public class Game extends Observable {
         this.setChanged();
 
         this.notifyObservers(state);
+    }
+
+    class LaunchGame implements Runnable {
+        public void run() {
+            launchGame();
+        }
     }
 
 }
