@@ -1,17 +1,20 @@
 package fr.mg.model;
 
-public class Player {
+import java.util.ArrayList;
+
+public abstract class Player {
 
     private int position;
     private String name;
+    private ArrayList<Chest> chests;
+    private int treasureCount;
 
-    public int treasureCount;
 
-
-    public Player(String vname){
+    public Player(String vname) {
         name = vname;
         position = 0;
         treasureCount = 0;
+        chests = new ArrayList<>();
     }
 
     public int getPosition() {
@@ -25,4 +28,17 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public void pickupChest(Level level){
+        chests.add(level.dropChest());
+    }
+
+    public ArrayList<Chest> loseChests(){
+        ArrayList<Chest> lost = chests;
+        chests = new ArrayList<>();
+        return lost;
+    }
+
+    public abstract Move getNextMove();
+
 }

@@ -32,10 +32,31 @@ public class Game extends Observable {
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
 
         for (Player player : playerOrder) {
-
+            // On attend une action valide
+            boolean validMove = false;
+            while (!validMove) {
+                switch (player.getNextMove()) {
+                    case UP:
+                        if (player.getPosition() > 0) {
+                            player.setPosition(player.getPosition() - 1);
+                            validMove = true;
+                        }
+                        break;
+                    case DOWN:
+                        if (player.getPosition() < (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+                            player.setPosition(player.getPosition() + 1);
+                            validMove = true;
+                        }
+                        break;
+                    case PICKUP:
+                        if (getPlayerLevel(player).getChestCount() > 0) {
+                            player.pickupChest(getPlayerLevel(player));
+                            validMove = true;
+                        }
+                        break;
+                }
+            }
         }
-
-
     }
 
     public void init(int playerCount) {
@@ -64,6 +85,21 @@ public class Game extends Observable {
         //launchGame();
         this.updateObservers();
         System.out.println("Init sucessful");
+    }
+
+    public Level getPlayerLevel(Player player) {
+        int position = player.getPosition();
+        if (position < 0 || position > (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            if (position < cave1.getSize()) {
+                return cave1.getLevel(position);
+            } else if (position < cave1.getSize() + cave2.getSize() - 1) {
+                return cave2.getLevel(position - cave1.getSize());
+            } else {
+                return cave3.getLevel(position - cave1.getSize() - cave2.getSize());
+            }
+        }
     }
 
     public void calculateScore() {

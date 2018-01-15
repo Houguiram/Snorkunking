@@ -31,8 +31,14 @@ public class Level {
         return chests.size();
     }
 
-    public void setChests(ArrayList<Chest> chests) {
-        this.chests = chests;
+    public void addChest(Chest chest) {
+        chests.add(chest);
+    }
+
+    public Chest dropChest() {
+        Chest chest = chests.get(0);
+        chests.remove(0);
+        return chest;
     }
 
 
