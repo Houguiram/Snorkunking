@@ -55,7 +55,7 @@ public class IHM extends JFrame {
             }
 
 
-            while ((boolean) gameState.get(13)) {
+            while ((boolean) gameState.get(13)) { // Tant que la partie n'est pas terminée
                 container = new JPanel();
                 // Setup du layout de la fenêtre de jeu
                 container.setBackground(Color.blue);
@@ -90,6 +90,8 @@ public class IHM extends JFrame {
                 } while (!needRefresh);
 
             }
+
+
             restart = false;
 
         }
