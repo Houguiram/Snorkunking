@@ -1,6 +1,7 @@
 package fr.mg.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Observable;
 
@@ -94,8 +95,10 @@ public class Game extends Observable {
 
     public void playTurn() {
         // Le joueur le plus bas joue en premier
-        ArrayList<Player> playerOrder = players;
+        ArrayList<Player> playerOrder = (ArrayList<Player>)players.clone();
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
+        if (players.get(0).getPosition()==players.get(1).getPosition())
+            Collections.shuffle(playerOrder);
 
         for (Player player : playerOrder) {
             // On attend une action valide
