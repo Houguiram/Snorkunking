@@ -61,11 +61,18 @@ public class GameView extends JPanel {
         }
 
         // Players
-        g.setColor(Color.red);
-        g.fillOval(x + 50, c1Y + (player1Pos * 14), 14, 14);
-        g.setColor(Color.magenta);
-        g.fillOval(x + 220, c1Y + (player2Pos * 14), 14, 14);
-
+        try {
+            Image img = ImageIO.read(new File("diver.png"));
+            g.drawImage(img,x + 50, c1Y + (player1Pos * 14) - 13,40,40, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Image img = ImageIO.read(new File("diver2.png"));
+            g.drawImage(img,x + 220, c1Y + (player2Pos * 14) - 13,40,40, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
