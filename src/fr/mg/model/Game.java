@@ -14,6 +14,7 @@ public class Game extends Observable {
     private Thread t;
     private int currentInput = 0;
     private int currentFocus;
+    private boolean running;
 
     public Game() {
         oxygen = 0;
@@ -24,6 +25,7 @@ public class Game extends Observable {
     }
 
     public void init(int playerCount) {
+        running = true;
         // Création des caves
         for (int i = 0; i < 3; i++) {
             caves.add(new Cave(i + 1));
@@ -94,8 +96,11 @@ public class Game extends Observable {
             // On passe au stage suivant
             stage++;
         }
-        System.out.println("Partie terminée !");
+        running = false; // Jeu terminé
+        this.updateObservers();
+
     }
+
 
     private void playTurn() {
         // Le joueur le plus bas joue en premier
@@ -160,7 +165,7 @@ public class Game extends Observable {
         } else {
             if (position < caves.get(0).getSize()) {
                 return caves.get(0).getLevel(position);
-            } else if (position < caves.get(0).getSize() + caves.get(1).getSize() - 1) {
+            } else if (position < caves.get(0).getSize() + caves.get(1).getSize()) {
                 return caves.get(1).getLevel(position - caves.get(0).getSize());
             } else {
                 return caves.get(2).getLevel(position - caves.get(0).getSize() - caves.get(1).getSize());
@@ -205,12 +210,14 @@ public class Game extends Observable {
         state.add(currentFocus);
         // 12 : position des coffres
         ArrayList<Integer> posCoffres = new ArrayList<>();
-        for (Cave cave : caves){
-            for (int i = 0; i < cave.getSize(); i++){
+        for (Cave cave : caves) {
+            for (int i = 0; i < cave.getSize(); i++) {
                 posCoffres.add(cave.getLevel(i).getChestCount() == 0 ? 0 : 1);
             }
         }
         state.add(posCoffres);
+        // 13 : jeux terminé ?
+        state.add(running);
 
 
         this.setChanged();

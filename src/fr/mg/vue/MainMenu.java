@@ -9,15 +9,12 @@ import java.io.IOException;
 public class MainMenu extends JPanel {
 
     public void paintComponent(Graphics g) {
-        g.setColor(Color.WHITE);
         try {
             Image img = ImageIO.read(new File("mainBackground.jpg"));
             g.drawImage(img,0, 0,this);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
 
