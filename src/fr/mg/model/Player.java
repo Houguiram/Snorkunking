@@ -7,12 +7,12 @@ public abstract class Player {
     private int position;
     private String name;
     private ArrayList<Chest> chests;
-    private int treasureCount;
+    private int score;
 
     public Player(String vname) {
         name = vname;
         position = 0;
-        treasureCount = 0;
+        score = 0;
         chests = new ArrayList<>();
     }
 
@@ -33,13 +33,21 @@ public abstract class Player {
     }
 
     public ArrayList<Chest> loseChests() {
-        ArrayList<Chest> lost = chests;
+        ArrayList<Chest> lost = (ArrayList<Chest>)chests.clone();
         chests.removeAll(lost);
         return lost;
     }
 
     public int chestCount() {
         return chests.size();
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public abstract Move getNextMove(int input);

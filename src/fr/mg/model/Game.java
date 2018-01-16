@@ -15,6 +15,7 @@ public class Game extends Observable {
     private int stage;
     private Thread t;
     private int currentInput = 0;
+    private int currentFocus;
 
     public Game() {
         oxygen = 0;
@@ -23,6 +24,7 @@ public class Game extends Observable {
         cave2 = null;
         cave3 = null;
         stage = 0;
+        currentFocus = 0;
     }
 
     public void init(int playerCount) {
@@ -70,13 +72,29 @@ public class Game extends Observable {
         while (stage < 4) {
             this.updateObservers();
             while (oxygen > 0) {
-                System.out.println("Début du tour");
                 playTurn();
-                System.out.println("Tour joué !");
+
+                // Si un joueur est en haut, ses trésors sont ajoutés à son score
+                for (Player player : players) {
+                    if (player.getPosition() == 0) {
+                        ArrayList<Chest> chests = player.loseChests();
+                        for (Chest chest : chests) {
+                            player.setScore(player.getScore() + chest.getTreasureCount());
+                        }
+                        this.updateObservers();
+                    }
+                }
             }
-            // On replace tous les joueurs en haut
+            // On replace tous les joueurs en haut / Ceux qui ne sont pas en haut perdent leurs coffres
             for (Player player : players) {
-                player.setPosition(0);
+                if (player.getPosition() != 0) {
+                    for (Chest chest : player.loseChests()) {
+                        if (cave3.getSize() != 0) {
+                            cave3.getLevel(cave3.getSize() - 1).addChest(chest);
+                        }
+                    }
+                    player.setPosition(0);
+                }
             }
 
             // On met à jour les niveaux
@@ -95,12 +113,15 @@ public class Game extends Observable {
 
     public void playTurn() {
         // Le joueur le plus bas joue en premier
-        ArrayList<Player> playerOrder = (ArrayList<Player>)players.clone();
+        ArrayList<Player> playerOrder = (ArrayList<Player>) players.clone();
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
-        if (players.get(0).getPosition()==players.get(1).getPosition())
+        if (players.get(0).getPosition() == players.get(1).getPosition())
             Collections.shuffle(playerOrder);
 
         for (Player player : playerOrder) {
+            // Le joueur a le focus
+            currentFocus = player == players.get(0) ? 1 : 2;
+            this.updateObservers();
             // On attend une action valide
             boolean validMove = false;
             while (!validMove) {
@@ -177,6 +198,12 @@ public class Game extends Observable {
         state.add(players.get(0).getPosition());
         // 8 : position du joueur 2
         state.add(players.get(1).getPosition());
+        // 9 : score du joueur 1
+        state.add(players.get(0).getScore());
+        // 10 : score du joueur 2
+        state.add(players.get(1).getScore());
+        // 11 : joueur ayant le focus
+        state.add(currentFocus);
 
         this.setChanged();
 
