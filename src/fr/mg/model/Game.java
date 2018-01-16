@@ -9,9 +9,7 @@ public class Game extends Observable {
 
     private int oxygen;
     private ArrayList<Player> players;
-    private Cave cave1;
-    private Cave cave2;
-    private Cave cave3;
+    private ArrayList<Cave> caves;
     private int stage;
     private Thread t;
     private int currentInput = 0;
@@ -20,18 +18,16 @@ public class Game extends Observable {
     public Game() {
         oxygen = 0;
         players = null;
-        cave1 = null;
-        cave2 = null;
-        cave3 = null;
+        caves = new ArrayList<>();
         stage = 0;
         currentFocus = 0;
     }
 
     public void init(int playerCount) {
         // Création des caves
-        cave1 = new Cave(1);
-        cave2 = new Cave(2);
-        cave3 = new Cave(3);
+        for (int i = 0; i < 3; i++){
+            caves.add(new Cave(i+1));
+        }
 
         stage = 1;
         // Création des joueurs
@@ -46,7 +42,7 @@ public class Game extends Observable {
         }
 
         // Oxygen = 2 * nbr de niveaux
-        oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+        oxygen = 2 * getCavesSizes();
 
         // Lancement du jeu
         t = new Thread(new LaunchGame());
@@ -89,8 +85,8 @@ public class Game extends Observable {
             for (Player player : players) {
                 if (player.getPosition() != 0) {
                     for (Chest chest : player.loseChests()) {
-                        if (cave3.getSize() != 0) {
-                            cave3.getLevel(cave3.getSize() - 1).addChest(chest);
+                        if (caves.get(2).getSize() != 0) {
+                            caves.get(2).getLevel(caves.get(2).getSize() - 1).addChest(chest);
                         }
                     }
                     player.setPosition(0);
@@ -98,12 +94,12 @@ public class Game extends Observable {
             }
 
             // On met à jour les niveaux
-            cave1.removeEmpty();
-            cave2.removeEmpty();
-            cave3.removeEmpty();
+            for (Cave cave : caves){
+                cave.removeEmpty();
+            }
 
             // On recalcule l'oxygen entre chaque stage
-            oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+            oxygen = 2 * getCavesSizes();
 
             // On passe au stage suivant
             stage++;
@@ -134,7 +130,7 @@ public class Game extends Observable {
                         }
                         break;
                     case DOWN:
-                        if (player.getPosition() < (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+                        if (player.getPosition() < (getCavesSizes() - 1)) {
                             player.setPosition(player.getPosition() + 1);
                             oxygen -= (1 + player.chestCount());
                             validMove = true;
@@ -162,17 +158,25 @@ public class Game extends Observable {
 
     public Level getPlayerLevel(Player player) {
         int position = player.getPosition();
-        if (position < 0 || position > (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
+        if (position < 0 || position > (getCavesSizes() - 1)) {
             throw new IndexOutOfBoundsException();
         } else {
-            if (position < cave1.getSize()) {
-                return cave1.getLevel(position);
-            } else if (position < cave1.getSize() + cave2.getSize() - 1) {
-                return cave2.getLevel(position - cave1.getSize());
+            if (position < caves.get(0).getSize()) {
+                return caves.get(0).getLevel(position);
+            } else if (position < caves.get(0).getSize() + caves.get(1).getSize() - 1) {
+                return caves.get(1).getLevel(position - caves.get(0).getSize());
             } else {
-                return cave3.getLevel(position - cave1.getSize() - cave2.getSize());
+                return caves.get(2).getLevel(position - caves.get(0).getSize() - caves.get(1).getSize());
             }
         }
+    }
+
+    public int getCavesSizes() {
+        int size = 0;
+        for (Cave cave : caves){
+            size += cave.getSize();
+        }
+        return size;
     }
 
     public void calculateScore() {
@@ -186,12 +190,10 @@ public class Game extends Observable {
         state.add(players.get(0).getName());
         // 2 : nom du joueur 2
         state.add(players.get(1).getName());
-        // 3 : taille de la cave 1
-        state.add(cave1.getSize());
-        // 4 : taille de la cave 2
-        state.add(cave2.getSize());
-        // 5 : taille de la cave 3
-        state.add(cave3.getSize());
+        // 3 / 4 / 5 : taille des caves
+        for (Cave cave : caves){
+            state.add(cave.getSize());
+        }
         // 6 : stage
         state.add(stage);
         // 7 : position du joueur 1
@@ -204,6 +206,9 @@ public class Game extends Observable {
         state.add(players.get(1).getScore());
         // 11 : joueur ayant le focus
         state.add(currentFocus);
+        // 12 : position des coffres
+        ArrayList<Integer> posCoffres = new ArrayList<>();
+
 
         this.setChanged();
 
