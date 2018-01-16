@@ -1,19 +1,16 @@
 package fr.mg.vue;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import fr.mg.model.Game;
 
 public class IHM extends JFrame {
-    private JPanel container = new JPanel();
+    private JPanel container;
     private Game game;
     private ArrayList gameState;
 
