@@ -23,6 +23,12 @@ public class IHM extends JFrame {
         this.setResizable(false);
         this.setFocusable(true);
         this.addKeyListener(new ClavierListener());
+        boolean needRefresh = false;
+        this.setVisible(true);
+
+
+        // Menu principal
+
 
         // Lancement du jeu
         this.game = game;
@@ -56,12 +62,13 @@ public class IHM extends JFrame {
             this.validate();
             this.repaint();
 
-            this.setVisible(true);
-            try {
-                TimeUnit.MILLISECONDS.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            needRefresh = false;
+            ArrayList oldState = (ArrayList) gameState.clone();
+            do {
+                if (!oldState.equals(gameState))
+                    needRefresh = true;
+            } while (!needRefresh);
+
         }
     }
 
