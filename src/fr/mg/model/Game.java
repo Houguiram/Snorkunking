@@ -14,7 +14,7 @@ public class Game extends Observable {
     private Thread t;
     private int currentInput = 0;
     private int currentFocus;
-    private boolean running;
+    private int running;
 
     public Game() {
         oxygen = 0;
@@ -25,7 +25,7 @@ public class Game extends Observable {
     }
 
     public void init(int playerCount) {
-        running = true;
+        running = 1;
         // Création des caves
         for (int i = 0; i < 3; i++) {
             caves.add(new Cave(i + 1));
@@ -96,7 +96,7 @@ public class Game extends Observable {
             // On passe au stage suivant
             stage++;
         }
-        running = false; // Jeu terminé
+        running = 0; // Jeu terminé
         this.updateObservers();
 
     }

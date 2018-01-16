@@ -55,7 +55,7 @@ public class IHM extends JFrame {
             }
 
 
-            while ((boolean) gameState.get(13)) { // Tant que la partie n'est pas terminée
+            while ((Integer)gameState.get(13) == 1) { // Tant que la partie n'est pas terminée
                 container = new JPanel();
                 // Setup du layout de la fenêtre de jeu
                 container.setBackground(Color.blue);
@@ -90,10 +90,28 @@ public class IHM extends JFrame {
                 } while (!needRefresh);
 
             }
+            // Menu End
+            container = new JPanel();
+            container.setLayout(new GridLayout(0, 1));
+            container.add(new EndMenu());
+            this.setContentPane(container);
+            this.validate();
+            this.repaint();
 
+            // Sélection du mode de jeu
+            while (game.getCurrentInput() != 65 && game.getCurrentInput() != 66) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            restart = false;
-
+            if (game.getCurrentInput() == 65) {
+                restart = true;
+            } else {
+                restart = false;
+            }
         }
         System.exit(0);
     }
