@@ -9,7 +9,6 @@ public abstract class Player {
     private ArrayList<Chest> chests;
     private int treasureCount;
 
-
     public Player(String vname) {
         name = vname;
         position = 0;
@@ -29,17 +28,17 @@ public abstract class Player {
         return name;
     }
 
-    public void pickupChest(Level level){
+    public void pickupChest(Level level) {
         chests.add(level.dropChest());
     }
 
-    public ArrayList<Chest> loseChests(){
+    public ArrayList<Chest> loseChests() {
         ArrayList<Chest> lost = chests;
-        chests = new ArrayList<>();
+        chests.removeAll(lost);
         return lost;
     }
 
-    public int chestCount(){
+    public int chestCount() {
         return chests.size();
     }
 

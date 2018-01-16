@@ -10,7 +10,7 @@ public class GameView extends JPanel {
     private int player1Pos;
     private int player2Pos;
 
-    public GameView(int cave1, int cave2, int cave3, int player1Pos,int player2Pos) {
+    public GameView(int cave1, int cave2, int cave3, int player1Pos, int player2Pos) {
         this.cave1 = cave1;
         this.cave2 = cave2;
         this.cave3 = cave3;
@@ -18,10 +18,8 @@ public class GameView extends JPanel {
         this.player2Pos = player2Pos;
     }
 
-
     public void paintComponent(Graphics g) {
         // Setup caves sizes
-
         int x = 100, w = 300;
         int textX = x + (w / 2) - 15;
         int c1Y = 10, c1H = cave1 * 14;
@@ -46,11 +44,10 @@ public class GameView extends JPanel {
         g.drawString("Cave 3", textX, c3Y + (c3H / 2));
 
         // Players
-
         g.setColor(Color.red);
-        g.fillOval(x+50,c1Y+(player1Pos*14),14,14);
+        g.fillOval(x + 50, c1Y + (player1Pos * 14), 14, 14);
         g.setColor(Color.magenta);
-        g.fillOval(x+220,c1Y+(player2Pos*14),14,14);
+        g.fillOval(x + 220, c1Y + (player2Pos * 14), 14, 14);
 
 
     }

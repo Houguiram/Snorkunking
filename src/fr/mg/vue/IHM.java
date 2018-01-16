@@ -28,7 +28,6 @@ public class IHM extends JFrame {
         this.addKeyListener(new ClavierListener());
 
         // Lancement du jeu
-
         this.game = game;
         this.game.addObserver((o, state) -> gameState = (ArrayList) state);
         game.init(2);
@@ -51,7 +50,7 @@ public class IHM extends JFrame {
                     (int) gameState.get(5),
                     (int) gameState.get(7),
                     (int) gameState.get(8)), BorderLayout.CENTER);
-            
+
             this.setContentPane(container);
             this.validate();
             this.repaint();
@@ -65,15 +64,11 @@ public class IHM extends JFrame {
         }
     }
 
-
-
     private class ClavierListener implements KeyListener {
         public void keyTyped(KeyEvent e) {
-
         }
 
         public void keyPressed(KeyEvent e) {
-
         }
 
         public void keyReleased(KeyEvent e) {
@@ -84,7 +79,7 @@ public class IHM extends JFrame {
                 e1.printStackTrace();
             }
             game.setCurrentInput(0);
-            System.out.println("Touche pressée : "+e.getKeyCode());
+            System.out.println("Touche pressée : " + e.getKeyCode());
         }
     }
 }

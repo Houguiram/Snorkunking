@@ -15,7 +15,6 @@ public class Game extends Observable {
     private Thread t;
     private int currentInput = 0;
 
-
     public Game() {
         oxygen = 0;
         players = null;
@@ -25,6 +24,73 @@ public class Game extends Observable {
         stage = 0;
     }
 
+    public void init(int playerCount) {
+        // Création des caves
+        cave1 = new Cave(1);
+        cave2 = new Cave(2);
+        cave3 = new Cave(3);
+
+        stage = 1;
+        // Création des joueurs
+        players = new ArrayList<Player>();
+
+        if (playerCount == 1) {
+            players.add(new HumanPlayer("P1"));
+            players.add(new AIPlayer("AI"));
+        } else if (playerCount == 2) {
+            players.add(new HumanPlayer("P1"));
+            players.add(new HumanPlayer("P2"));
+        }
+
+        // Oxygen = 2 * nbr de niveaux
+        oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+
+        // Lancement du jeu
+        t = new Thread(new LaunchGame());
+        t.start();
+
+        this.updateObservers();
+        System.out.println("Init sucessful");
+    }
+
+    class LaunchGame implements Runnable {
+        public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            launchGame();
+        }
+    }
+
+    public void launchGame() {
+        stage = 1;
+        while (stage < 4) {
+            this.updateObservers();
+            while (oxygen > 0) {
+                System.out.println("Début du tour");
+                playTurn();
+                System.out.println("Tour joué !");
+            }
+            // On replace tous les joueurs en haut
+            for (Player player : players) {
+                player.setPosition(0);
+            }
+
+            // On met à jour les niveaux
+            cave1.removeEmpty();
+            cave2.removeEmpty();
+            cave3.removeEmpty();
+
+            // On recalcule l'oxygen entre chaque stage
+            oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
+
+            // On passe au stage suivant
+            stage++;
+        }
+        System.out.println("Partie terminée !");
+    }
 
     public void playTurn() {
         // Le joueur le plus bas joue en premier
@@ -70,35 +136,6 @@ public class Game extends Observable {
         }
     }
 
-    public void init(int playerCount) {
-        // Création des caves
-        cave1 = new Cave(1);
-        cave2 = new Cave(2);
-        cave3 = new Cave(3);
-
-        stage = 1;
-        // Création des joueurs
-        players = new ArrayList<Player>();
-
-        if (playerCount == 1) {
-            players.add(new HumanPlayer("P1"));
-            players.add(new AIPlayer("AI"));
-        } else if (playerCount == 2) {
-            players.add(new HumanPlayer("P1"));
-            players.add(new HumanPlayer("P2"));
-        }
-
-        // Oxygen = 2 * nbr de niveaux
-        oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize()) - 30;
-
-        // Lancement du jeu
-        t = new Thread(new LaunchGame());
-        t.start();
-
-        this.updateObservers();
-        System.out.println("Init sucessful");
-    }
-
     public Level getPlayerLevel(Player player) {
         int position = player.getPosition();
         if (position < 0 || position > (cave1.getSize() + cave2.getSize() + cave3.getSize() - 1)) {
@@ -115,34 +152,6 @@ public class Game extends Observable {
     }
 
     public void calculateScore() {
-    }
-
-    public void launchGame() {
-        stage = 1;
-        while (stage < 4) {
-            this.updateObservers();
-            while (oxygen > 0) {
-                System.out.println("Début du tour");
-                playTurn();
-                System.out.println("Tour joué !");
-            }
-            // On replace tous les joueurs en haut
-            for (Player player : players) {
-                player.setPosition(0);
-            }
-
-            // On met à jour les niveaux
-            cave1.removeEmpty();
-            cave2.removeEmpty();
-            cave3.removeEmpty();
-
-            // On recalcule l'oxygen entre chaque stage
-            oxygen = 2 * (cave1.getSize() + cave2.getSize() + cave3.getSize());
-
-            // On passe au stage suivant
-            stage++;
-        }
-        System.out.println("Partie terminée !");
     }
 
     public void updateObservers() {
@@ -170,18 +179,6 @@ public class Game extends Observable {
 
         this.notifyObservers(state);
     }
-
-    class LaunchGame implements Runnable {
-        public void run() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            launchGame();
-        }
-    }
-
 
     public void setCurrentInput(int currentInput) {
         this.currentInput = currentInput;

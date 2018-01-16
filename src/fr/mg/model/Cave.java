@@ -3,7 +3,6 @@ package fr.mg.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-// Each cave contains levels
 public class Cave {
     // Each cave contains levels
     private ArrayList<Level> levels;
@@ -25,7 +24,7 @@ public class Cave {
                 throw new IllegalArgumentException(Integer.toString(caveType));
         }
         levels = new ArrayList<>();
-        for (int i = 0; i < levelNbrs; i++){
+        for (int i = 0; i < levelNbrs; i++) {
             levels.add(new Level(caveType));
         }
     }
@@ -34,14 +33,14 @@ public class Cave {
         return levels.get(index);
     }
 
-    public int getSize(){
+    public int getSize() {
         return levels.size();
     }
 
-    public void removeEmpty(){
+    public void removeEmpty() {
         ArrayList<Level> empty = new ArrayList<>();
-        for (Level level : levels){
-            if (level.getChestCount() == 0){
+        for (Level level : levels) {
+            if (level.getChestCount() == 0) {
                 empty.add(level);
             }
         }

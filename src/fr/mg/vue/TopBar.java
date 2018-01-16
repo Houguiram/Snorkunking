@@ -25,10 +25,10 @@ public class TopBar extends JPanel {
         int y = 15;
         g.setColor(Color.BLACK);
         g.drawString("Scores", 30, y);
-        g.drawString("Stage "+stage+"/3",30, y+20);
-        g.drawString(player1Name+" :", 150, y);
+        g.drawString("Stage " + stage + "/3", 30, y + 20);
+        g.drawString(player1Name + " :", 150, y);
         g.drawString("XX", 180, y);
-        g.drawString(player2Name+" :", 300, y);
+        g.drawString(player2Name + " :", 300, y);
         g.drawString("XX", 330, y);
 
         // Oxygen container
@@ -36,7 +36,7 @@ public class TopBar extends JPanel {
 
         //Oxygen bar
         g.setColor(Color.cyan);
-        g.fillRoundRect(143, y + 8, oxygen*4, 15, 5, 5);
+        g.fillRoundRect(143, y + 8, oxygen * 4, 15, 5, 5);
     }
 
     @Override
