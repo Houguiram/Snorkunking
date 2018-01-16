@@ -23,17 +23,36 @@ public class IHM extends JFrame {
         this.setResizable(false);
         this.setFocusable(true);
         this.addKeyListener(new ClavierListener());
-        boolean needRefresh = false;
+        boolean needRefresh;
         this.setVisible(true);
 
-
         // Menu principal
-
+        container = new JPanel();
+        container.setLayout(new GridLayout(0, 1));
+        container.add(new MainMenu());
+        this.setContentPane(container);
 
         // Lancement du jeu
         this.game = game;
         this.game.addObserver((o, state) -> gameState = (ArrayList) state);
-        game.init(2);
+
+        // Sélection du mode de jeu
+        while (game.getCurrentInput() != 65 && game.getCurrentInput() != 66){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Input : "+game.getCurrentInput());
+        }
+
+        if (game.getCurrentInput() == 65){
+            game.init(1);
+        } else {
+            game.init(2);
+        }
+
+
         while (true) {
             this.invalidate();
             container = new JPanel();
@@ -82,7 +101,7 @@ public class IHM extends JFrame {
         public void keyReleased(KeyEvent e) {
             game.setCurrentInput(e.getKeyCode());
             try {
-                Thread.sleep(10);
+                Thread.sleep(3);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }

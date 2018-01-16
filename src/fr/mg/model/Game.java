@@ -31,7 +31,7 @@ public class Game extends Observable {
 
         stage = 1;
         // Création des joueurs
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
 
         if (playerCount == 1) {
             players.add(new HumanPlayer("P1"));
@@ -63,7 +63,7 @@ public class Game extends Observable {
         }
     }
 
-    public void launchGame() {
+    private void launchGame() {
         stage = 1;
         while (stage < 4) {
             this.updateObservers();
@@ -97,7 +97,7 @@ public class Game extends Observable {
         System.out.println("Partie terminée !");
     }
 
-    public void playTurn() {
+    private void playTurn() {
         // Le joueur le plus bas joue en premier
         ArrayList<Player> playerOrder = (ArrayList<Player>) players.clone();
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
@@ -153,7 +153,7 @@ public class Game extends Observable {
         }
     }
 
-    public Level getPlayerLevel(Player player) {
+    private Level getPlayerLevel(Player player) {
         int position = player.getPosition();
         if (position < 0 || position > (getCavesSizes() - 1)) {
             throw new IndexOutOfBoundsException();
@@ -168,7 +168,7 @@ public class Game extends Observable {
         }
     }
 
-    public int getCavesSizes() {
+    private int getCavesSizes() {
         int size = 0;
         for (Cave cave : caves) {
             size += cave.getSize();
@@ -179,7 +179,7 @@ public class Game extends Observable {
     public void calculateScore() {
     }
 
-    public void updateObservers() {
+    private void updateObservers() {
         ArrayList state = new ArrayList();
         // 0 : oxygen
         state.add(oxygen);
@@ -222,4 +222,7 @@ public class Game extends Observable {
         this.currentInput = currentInput;
     }
 
+    public int getCurrentInput() {
+        return currentInput;
+    }
 }
