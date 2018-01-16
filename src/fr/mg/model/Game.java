@@ -205,6 +205,12 @@ public class Game extends Observable {
         state.add(currentFocus);
         // 12 : position des coffres
         ArrayList<Integer> posCoffres = new ArrayList<>();
+        for (Cave cave : caves){
+            for (int i = 0; i < cave.getSize(); i++){
+                posCoffres.add(cave.getLevel(i).getChestCount() == 0 ? 0 : 1);
+            }
+        }
+        state.add(posCoffres);
 
 
         this.setChanged();

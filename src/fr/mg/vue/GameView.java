@@ -2,6 +2,7 @@ package fr.mg.vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameView extends JPanel {
     private int cave1;
@@ -9,13 +10,15 @@ public class GameView extends JPanel {
     private int cave3;
     private int player1Pos;
     private int player2Pos;
+    private ArrayList<Integer> chestsPos;
 
-    public GameView(int cave1, int cave2, int cave3, int player1Pos, int player2Pos) {
+    public GameView(int cave1, int cave2, int cave3, int player1Pos, int player2Pos, ArrayList<Integer> chestsPos) {
         this.cave1 = cave1;
         this.cave2 = cave2;
         this.cave3 = cave3;
         this.player1Pos = player1Pos;
         this.player2Pos = player2Pos;
+        this.chestsPos = chestsPos;
     }
 
     public void paintComponent(Graphics g) {
@@ -23,8 +26,8 @@ public class GameView extends JPanel {
         int x = 100, w = 300;
         int textX = x + (w / 2) - 15;
         int c1Y = 10, c1H = cave1 * 14;
-        int c2Y = c1H + c1Y + 5, c2H = cave2 * 14;
-        int c3Y = c2Y + c2H + 5, c3H = cave3 * 14;
+        int c2Y = c1H + c1Y, c2H = cave2 * 14;
+        int c3Y = c2Y + c2H, c3H = cave3 * 14;
 
         g.setColor(Color.yellow);
 
