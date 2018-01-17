@@ -14,8 +14,9 @@ public class IHM extends JFrame {
     private Game game;
     private ArrayList gameState;
 
-    public IHM(Game game) {
+    public IHM() {
         boolean restart = true;
+        boolean running = true;
         while (restart) {
             // Setup de la fenêtre
             this.setSize(500, 500);
@@ -26,16 +27,18 @@ public class IHM extends JFrame {
             this.setFocusable(true);
             this.addKeyListener(new ClavierListener());
             boolean needRefresh;
-            this.setVisible(true);
 
             // Menu principal
             container = new JPanel();
             container.setLayout(new GridLayout(0, 1));
             container.add(new MainMenu());
             this.setContentPane(container);
+            this.validate();
+            this.setVisible(true);
 
             // Lancement du jeu
-            this.game = game;
+
+            this.game = new Game();
             this.game.addObserver((o, state) -> gameState = (ArrayList) state);
 
             // Sélection du mode de jeu
@@ -45,7 +48,6 @@ public class IHM extends JFrame {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Input : " + game.getCurrentInput());
             }
 
             if (game.getCurrentInput() == 65) {
@@ -54,8 +56,16 @@ public class IHM extends JFrame {
                 game.init(2);
             }
 
+            while ((int) gameState.get(13) == 0) { // On attend la fin du Init
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            running = true;
 
-            while ((Integer)gameState.get(13) == 1) { // Tant que la partie n'est pas terminée
+            while (running) { // Tant que la partie n'est pas terminée
                 container = new JPanel();
                 // Setup du layout de la fenêtre de jeu
                 container.setBackground(Color.blue);
@@ -88,12 +98,15 @@ public class IHM extends JFrame {
                     if (!oldState.equals(gameState))
                         needRefresh = true;
                 } while (!needRefresh);
-
+                running = (int) gameState.get(13) == 1 ? true : false;
             }
             // Menu End
             container = new JPanel();
             container.setLayout(new GridLayout(0, 1));
-            container.add(new EndMenu());
+            container.add(new EndMenu((int) gameState.get(9),
+                    (int) gameState.get(10),
+                    (String) gameState.get(1),
+                    (String) gameState.get(2)));
             this.setContentPane(container);
             this.validate();
             this.repaint();
