@@ -52,9 +52,9 @@ public class GameView extends JPanel {
         // Chests
         try {
             Image img = ImageIO.read(new File("chest.png"));
-            for (int i = 0; i < chestsPos.size(); i++){
+            for (int i = 0; i < chestsPos.size(); i++) {
                 if (chestsPos.get(i).equals(1))
-                    g.drawImage(img, x - 30, c1Y + (i * 14) - 8,30,30, this);
+                    g.drawImage(img, x - 30, c1Y + (i * 14) - 8, 30, 30, this);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,13 +63,13 @@ public class GameView extends JPanel {
         // Players
         try {
             Image img = ImageIO.read(new File("diver.png"));
-            g.drawImage(img,x + 50, c1Y + (player1Pos * 14) - 13,40,40, this);
+            g.drawImage(img, x + 50, c1Y + (player1Pos * 14) - 13, 40, 40, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             Image img = ImageIO.read(new File("diver2.png"));
-            g.drawImage(img,x + 220, c1Y + (player2Pos * 14) - 13,40,40, this);
+            g.drawImage(img, x + 220, c1Y + (player2Pos * 14) - 13, 40, 40, this);
         } catch (IOException e) {
             e.printStackTrace();
         }

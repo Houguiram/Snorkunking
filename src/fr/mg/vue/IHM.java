@@ -146,7 +146,6 @@ public class IHM extends JFrame {
                 e1.printStackTrace();
             }
             game.setCurrentInput(0);
-            System.out.println("Touche pressée : " + e.getKeyCode());
         }
     }
 }

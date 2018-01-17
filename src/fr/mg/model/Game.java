@@ -36,11 +36,11 @@ public class Game extends Observable {
         players = new ArrayList<>();
 
         if (playerCount == 1) {
-            players.add(new HumanPlayer("P1"));
-            players.add(new AIPlayer("AI"));
+            players.add(new HumanPlayer("J1"));
+            players.add(new AIPlayer("IA"));
         } else if (playerCount == 2) {
-            players.add(new HumanPlayer("P1"));
-            players.add(new HumanPlayer("P2"));
+            players.add(new HumanPlayer("J1"));
+            players.add(new HumanPlayer("J2"));
         }
 
         // Oxygen = 2 * nbr de niveaux
@@ -51,7 +51,6 @@ public class Game extends Observable {
         t.start();
 
         this.updateObservers();
-        System.out.println("Init sucessful");
     }
 
     class LaunchGame implements Runnable {
@@ -182,7 +181,7 @@ public class Game extends Observable {
 
     public void calculateScore() {
         for (Player player : players) {
-            for (Chest chest : player.getStored()){
+            for (Chest chest : player.getStored()) {
                 player.addScore(chest.getTreasureCount());
             }
             player.getStored().removeAll(player.getStored());

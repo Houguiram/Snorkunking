@@ -15,7 +15,7 @@ public class AIPlayer extends Player {
             e.printStackTrace();
         }
 
-        if (this.chestCount() > 0){
+        if (this.chestCount() > 0) {
             return Move.UP;
         } else {
             toggle = !toggle;

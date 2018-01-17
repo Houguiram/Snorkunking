@@ -57,7 +57,7 @@ public abstract class Player {
     }
 
     public void addStored(ArrayList<Chest> toStore) {
-        for (Chest chest : toStore){
+        for (Chest chest : toStore) {
             this.stored.add(chest);
         }
     }
