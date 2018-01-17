@@ -15,6 +15,7 @@ public class Game extends Observable {
     private int currentInput = 0;
     private int currentFocus;
     private int running;
+    private GameStatus status;
 
     public Game() {
         oxygen = 0;
@@ -26,6 +27,7 @@ public class Game extends Observable {
 
     public void init(int playerCount) {
         running = 1;
+        status = GameStatus.RUNNING;
         // Création des caves
         for (int i = 0; i < 3; i++) {
             caves.add(new Cave(i + 1));
@@ -86,6 +88,21 @@ public class Game extends Observable {
 
             calculateScore(); // On ouvre les coffres
 
+            status = GameStatus.ENDOFSTAGE;
+
+            this.updateObservers();
+
+            do {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (this.currentInput == 0);
+            System.out.println("Yeah !");
+
+            status = GameStatus.RUNNING;
+
             // On met à jour les niveaux
             for (Cave cave : caves) {
                 cave.removeEmpty();
@@ -97,7 +114,7 @@ public class Game extends Observable {
             // On passe au stage suivant
             stage++;
         }
-        running = 0; // Jeu terminé
+        status = GameStatus.STOPPED;
         this.updateObservers();
 
     }
@@ -220,8 +237,8 @@ public class Game extends Observable {
             }
         }
         state.add(posCoffres);
-        // 13 : jeux terminé ?
-        state.add(running);
+        // 13 : état du jeu
+        state.add(status);
         // 14 : nbre de coffres remontés par le joueur 1
         state.add(players.get(0).getStored().size());
         // 15 : nbre de coffres remontés par le joueur 2

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import fr.mg.model.Game;
+import fr.mg.model.GameStatus;
 
 public class IHM extends JFrame {
     private JPanel container;
@@ -56,7 +57,7 @@ public class IHM extends JFrame {
                 game.init(2);
             }
 
-            while ((int) gameState.get(13) == 0) { // On attend la fin du Init
+            while (gameState.get(13) == GameStatus.STOPPED) { // On attend la fin du Init
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
@@ -99,7 +100,38 @@ public class IHM extends JFrame {
                     if (!oldState.equals(gameState))
                         needRefresh = true;
                 } while (!needRefresh);
-                running = (int) gameState.get(13) == 1;
+
+                running = gameState.get(13) == GameStatus.RUNNING;
+
+                switch ((GameStatus) gameState.get(13)) { // Quel est l'état du jeu
+                    case RUNNING: // Le jeu continue
+                        running = true;
+                        break;
+                    case STOPPED: // Le jeu est terminé
+                        running = false;
+                        break;
+                    case ENDOFSTAGE: // Le jeu est entre deux stages
+                        container = new JPanel();
+                        container.setLayout(new GridLayout(0, 1));
+                        container.add(new StageMenu((int) gameState.get(9),
+                                (int) gameState.get(10),
+                                (String) gameState.get(1),
+                                (String) gameState.get(2)));
+                        this.setContentPane(container);
+                        this.validate();
+                        this.repaint();
+                        do {
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        } while (gameState.get(13) == GameStatus.ENDOFSTAGE);
+
+                        running = gameState.get(13) == GameStatus.RUNNING;
+
+                        break;
+                }
             }
             // Menu End
             container = new JPanel();
