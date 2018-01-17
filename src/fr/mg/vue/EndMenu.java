@@ -40,10 +40,11 @@ public class EndMenu extends JPanel {
         }
 
         g.setColor(Color.white);
+        g.setFont(g.getFont().deriveFont(43f));
         if (tie) {
-            g.drawString("Égalité !", 10, 10);
+            g.drawString("Égalité !", 170, 200);
         } else {
-            g.drawString("Le gagnant est " + winner + " !", 10, 10);
+            g.drawString("Le gagnant est " + winner + " !", 50, 200);
         }
 
     }
