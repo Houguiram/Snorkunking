@@ -1,13 +1,25 @@
 package fr.mg.model;
 
 public class AIPlayer extends Player {
+    boolean toggle;
 
     public AIPlayer(String vname) {
         super(vname);
+        toggle = true;
     }
 
-    @Override
     public Move getNextMove(int i) {
-        return Move.DOWN;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (this.chestCount() > 0){
+            return Move.UP;
+        } else {
+            toggle = !toggle;
+            return toggle ? Move.DOWN : Move.PICKUP;
+        }
     }
 }
