@@ -63,7 +63,6 @@ public class IHM extends JFrame {
                     e.printStackTrace();
                 }
             }
-            running = true;
 
             while (running) { // Tant que la partie n'est pas terminée
                 container = new JPanel();
@@ -100,7 +99,7 @@ public class IHM extends JFrame {
                     if (!oldState.equals(gameState))
                         needRefresh = true;
                 } while (!needRefresh);
-                running = (int) gameState.get(13) == 1 ? true : false;
+                running = (int) gameState.get(13) == 1;
             }
             // Menu End
             container = new JPanel();

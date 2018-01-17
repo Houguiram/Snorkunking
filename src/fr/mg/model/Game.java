@@ -179,7 +179,7 @@ public class Game extends Observable {
         return size;
     }
 
-    public void calculateScore() {
+    private void calculateScore() {
         for (Player player : players) {
             for (Chest chest : player.getStored()) {
                 player.addScore(chest.getTreasureCount());
