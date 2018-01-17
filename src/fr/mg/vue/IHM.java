@@ -17,7 +17,7 @@ public class IHM extends JFrame {
 
     public IHM() {
         boolean restart = true;
-        boolean running = true;
+        boolean running;
         while (restart) {
             // Setup de la fenêtre
             this.setSize(500, 500);
@@ -65,7 +65,7 @@ public class IHM extends JFrame {
                 }
             }
 
-            while (running) { // Tant que la partie n'est pas terminée
+            do { // Tant que la partie n'est pas terminée
                 container = new JPanel();
                 // Setup du layout de la fenêtre de jeu
                 container.setBackground(Color.blue);
@@ -132,7 +132,7 @@ public class IHM extends JFrame {
 
                         break;
                 }
-            }
+            } while (running);
             // Menu End
             container = new JPanel();
             container.setLayout(new GridLayout(0, 1));
@@ -144,7 +144,7 @@ public class IHM extends JFrame {
             this.validate();
             this.repaint();
 
-            // Sélection du mode de jeu
+            // On demande au joueur s'il veut rejouer
             while (game.getCurrentInput() != 65 && game.getCurrentInput() != 66) {
                 try {
                     Thread.sleep(1);
@@ -153,11 +153,7 @@ public class IHM extends JFrame {
                 }
             }
 
-            if (game.getCurrentInput() == 65) {
-                restart = true;
-            } else {
-                restart = false;
-            }
+            restart = game.getCurrentInput() == 65;
         }
         System.exit(0);
     }
