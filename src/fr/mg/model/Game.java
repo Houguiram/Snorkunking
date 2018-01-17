@@ -85,6 +85,8 @@ public class Game extends Observable {
                 }
             }
 
+            calculateScore(); // On ouvre les coffres
+
             // On met à jour les niveaux
             for (Cave cave : caves) {
                 cave.removeEmpty();
@@ -144,10 +146,7 @@ public class Game extends Observable {
             }
             // Si le joueur est en haut, il ouvre ses coffres
             if (player.getPosition() == 0) {
-                ArrayList<Chest> chests = player.loseChests();
-                for (Chest chest : chests) {
-                    player.setScore(player.getScore() + chest.getTreasureCount());
-                }
+                player.setStored(player.loseChests());
             }
             this.updateObservers();
             try {
@@ -182,6 +181,12 @@ public class Game extends Observable {
     }
 
     public void calculateScore() {
+        for (Player player : players) {
+            for (Chest chest : player.getStored()){
+                player.addScore(chest.getTreasureCount());
+            }
+            player.getStored().removeAll(player.getStored());
+        }
     }
 
     private void updateObservers() {

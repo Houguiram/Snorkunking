@@ -7,6 +7,7 @@ public abstract class Player {
     private int position;
     private String name;
     private ArrayList<Chest> chests;
+    private ArrayList<Chest> stored;
     private int score;
 
     public Player(String vname) {
@@ -33,7 +34,7 @@ public abstract class Player {
     }
 
     public ArrayList<Chest> loseChests() {
-        ArrayList<Chest> lost = (ArrayList<Chest>)chests.clone();
+        ArrayList<Chest> lost = (ArrayList<Chest>) chests.clone();
         chests.removeAll(lost);
         return lost;
     }
@@ -46,8 +47,16 @@ public abstract class Player {
         return this.score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void addScore(int score) {
+        this.score += score;
+    }
+
+    public ArrayList<Chest> getStored() {
+        return stored;
+    }
+
+    public void setStored(ArrayList<Chest> stored) {
+        this.stored = stored;
     }
 
     public abstract Move getNextMove(int input);
