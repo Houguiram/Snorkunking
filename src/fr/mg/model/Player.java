@@ -15,6 +15,7 @@ public abstract class Player {
         position = 0;
         score = 0;
         chests = new ArrayList<>();
+        stored = new ArrayList<>();
     }
 
     public int getPosition() {
@@ -55,8 +56,10 @@ public abstract class Player {
         return stored;
     }
 
-    public void setStored(ArrayList<Chest> stored) {
-        this.stored = stored;
+    public void addStored(ArrayList<Chest> toStore) {
+        for (Chest chest : toStore){
+            this.stored.add(chest);
+        }
     }
 
     public abstract Move getNextMove(int input);

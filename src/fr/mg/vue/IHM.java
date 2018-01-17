@@ -78,7 +78,9 @@ public class IHM extends JFrame {
                         (int) gameState.get(6),
                         (int) gameState.get(9),
                         (int) gameState.get(10),
-                        (int) gameState.get(11)), BorderLayout.NORTH);
+                        (int) gameState.get(11),
+                        (int) gameState.get(14),
+                        (int) gameState.get(15)), BorderLayout.NORTH);
 
                 // On crée une vue du jeu avec les caves, les joueurs et les coffres
                 container.add(new GameView((int) gameState.get(3),

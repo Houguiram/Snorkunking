@@ -144,9 +144,9 @@ public class Game extends Observable {
                         break;
                 }
             }
-            // Si le joueur est en haut, il ouvre ses coffres
+            // Si le joueur est en haut, il stocke ses coffres
             if (player.getPosition() == 0) {
-                player.setStored(player.loseChests());
+                player.addStored(player.loseChests());
             }
             this.updateObservers();
             try {
@@ -223,6 +223,10 @@ public class Game extends Observable {
         state.add(posCoffres);
         // 13 : jeux terminé ?
         state.add(running);
+        // 14 : nbre de coffres remontés par le joueur 1
+        state.add(players.get(0).getStored().size());
+        // 15 : nbre de coffres remontés par le joueur 2
+        state.add(players.get(1).getStored().size());
 
 
         this.setChanged();

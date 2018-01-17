@@ -1,7 +1,10 @@
 package fr.mg.vue;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class TopBar extends JPanel {
     String player1Name;
@@ -11,8 +14,10 @@ public class TopBar extends JPanel {
     int score1;
     int score2;
     int playerTurn;
+    int player1Stored;
+    int player2Stored;
 
-    public TopBar(String player1Name, String player2Name, int oxygen, int stage, int score1, int score2, int playerTurn) {
+    public TopBar(String player1Name, String player2Name, int oxygen, int stage, int score1, int score2, int playerTurn, int player1Stored, int player2Stored) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         this.oxygen = oxygen;
@@ -20,6 +25,8 @@ public class TopBar extends JPanel {
         this.score1 = score1;
         this.score2 = score2;
         this.playerTurn = playerTurn;
+        this.player1Stored = player1Stored;
+        this.player2Stored = player2Stored;
     }
 
     public void paintComponent(Graphics g) {
@@ -39,7 +46,7 @@ public class TopBar extends JPanel {
         g.setFont(g.getFont().deriveFont(Font.PLAIN));
 
 
-        g.drawString(String.valueOf(score1), 180, y);
+        g.drawString(String.valueOf(score1) + " + " + player1Stored + " x ", 180, y);
 
 
         if (playerTurn == 2)
@@ -48,7 +55,17 @@ public class TopBar extends JPanel {
 
         g.setFont(g.getFont().deriveFont(Font.PLAIN));
 
-        g.drawString(String.valueOf(score2), 330, y);
+        g.drawString(String.valueOf(score2) + " + " + player2Stored + " x ", 330, y);
+
+        // Chest stored
+        try {
+            Image img = ImageIO.read(new File("chest.png"));
+            g.drawImage(img, 230, y - 20, 30, 30, this);
+            g.drawImage(img, 380, y - 20, 30, 30, this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Oxygen container
         g.drawRect(140, y + 5, 210, 20);
@@ -56,6 +73,8 @@ public class TopBar extends JPanel {
         //Oxygen bar
         g.setColor(Color.cyan);
         g.fillRoundRect(143, y + 8, oxygen * 4, 15, 5, 5);
+
+
     }
 
     public Dimension getPreferredSize() {
