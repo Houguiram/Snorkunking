@@ -122,7 +122,8 @@ public class Game extends Observable {
         // Le joueur le plus bas joue en premier
         ArrayList<Player> playerOrder = (ArrayList<Player>) players.clone();
         playerOrder.sort(Comparator.comparingInt(Player::getPosition).reversed());
-        if (players.get(0).getPosition() == players.get(1).getPosition())
+
+        if (players.get(0).getPosition() == players.get(1).getPosition()) // Si les joueurs sont au même niveau, l'ordre est aléatoire
             Collections.shuffle(playerOrder);
 
         for (Player player : playerOrder) {
