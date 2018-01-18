@@ -7,17 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class TopBar extends JPanel {
-    String player1Name;
-    String player2Name;
-    int oxygen;
-    int stage;
-    int score1;
-    int score2;
-    int playerTurn;
-    int player1Stored;
-    int player2Stored;
+    private String player1Name;
+    private String player2Name;
+    private int oxygen;
+    private int stage;
+    private int score1;
+    private int score2;
+    private int playerTurn;
+    private int player1Stored;
+    private int player2Stored;
 
-    public TopBar(String player1Name, String player2Name, int oxygen, int stage, int score1, int score2, int playerTurn, int player1Stored, int player2Stored) {
+    TopBar(String player1Name, String player2Name, int oxygen, int stage, int score1, int score2, int playerTurn, int player1Stored, int player2Stored) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         this.oxygen = oxygen;

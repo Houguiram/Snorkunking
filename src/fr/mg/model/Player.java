@@ -10,7 +10,7 @@ public abstract class Player {
     private ArrayList<Chest> stored;
     private int score;
 
-    public Player(String vname) {
+    Player(String vname) {
         name = vname;
         position = 0;
         score = 0;

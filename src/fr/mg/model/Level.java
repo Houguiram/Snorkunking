@@ -7,7 +7,7 @@ public class Level {
 
     private ArrayList<Chest> chests;
 
-    public Level(int caveType) {
+    Level(int caveType) {
         Random rand = new Random();
         int treasureCount;
         switch (caveType) { // 3 types of caves

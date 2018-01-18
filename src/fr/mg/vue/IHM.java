@@ -11,7 +11,6 @@ import fr.mg.model.Game;
 import fr.mg.model.GameStatus;
 
 public class IHM extends JFrame {
-    private JPanel container;
     private Game game;
     private ArrayList gameState;
 
@@ -30,7 +29,7 @@ public class IHM extends JFrame {
             boolean needRefresh;
 
             // Menu principal
-            container = new JPanel();
+            JPanel container = new JPanel();
             container.setLayout(new GridLayout(0, 1));
             container.add(new MainMenu());
             this.setContentPane(container);

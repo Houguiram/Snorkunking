@@ -7,10 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class StageMenu extends JPanel {
-    int player1Score;
-    int player2Score;
-    String player1Name;
-    String player2Name;
+    private int player1Score;
+    private int player2Score;
+    private String player1Name;
+    private String player2Name;
 
     StageMenu(int p1s, int p2s, String p1n, String p2n) {
         this.player1Score = p1s;

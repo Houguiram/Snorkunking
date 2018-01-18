@@ -1,9 +1,9 @@
 package fr.mg.model;
 
 public class AIPlayer extends Player {
-    boolean toggle;
+    private boolean toggle;
 
-    public AIPlayer(String vname) {
+    AIPlayer(String vname) {
         super(vname);
         toggle = true;
     }
