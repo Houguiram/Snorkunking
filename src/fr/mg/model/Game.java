@@ -14,7 +14,6 @@ public class Game extends Observable {
     private Thread t;
     private int currentInput = 0;
     private int currentFocus;
-    private int running;
     private GameStatus status;
 
     public Game() {
@@ -26,7 +25,6 @@ public class Game extends Observable {
     }
 
     public void init(int playerCount) {
-        running = 1;
         status = GameStatus.RUNNING;
         // Création des caves
         for (int i = 0; i < 3; i++) {
