@@ -97,7 +97,6 @@ public class Game extends Observable {
                     e.printStackTrace();
                 }
             } while (this.currentInput == 0);
-            System.out.println("Yeah !");
 
             status = GameStatus.RUNNING;
 
