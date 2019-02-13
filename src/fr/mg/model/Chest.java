@@ -1,6 +1,6 @@
 package fr.mg.model;
 
-public class Chest {
+class Chest {
 
     private int treasureCount;
 
@@ -8,7 +8,7 @@ public class Chest {
         treasureCount = vtreasureCount;
     }
 
-    public int getTreasureCount() {
+    int getTreasureCount() {
         return treasureCount;
     }
 }

@@ -11,7 +11,6 @@ public class Game extends Observable {
     private ArrayList<Player> players;
     private ArrayList<Cave> caves;
     private int stage;
-    private Thread t;
     private int currentInput = 0;
     private int currentFocus;
     private GameStatus status;
@@ -47,7 +46,7 @@ public class Game extends Observable {
         oxygen = 2 * getCavesSizes();
 
         // Lancement du jeu
-        t = new Thread(new LaunchGame());
+        Thread t = new Thread(new LaunchGame());
         t.start();
 
         this.updateObservers();

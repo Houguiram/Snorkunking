@@ -3,11 +3,11 @@ package fr.mg.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cave {
+class Cave {
     // Each cave contains levels
     private ArrayList<Level> levels;
 
-    public Cave(int caveType) {
+    Cave(int caveType) {
         Random rand = new Random();
         int levelNbrs;
         switch (caveType) { // 3 types of caves
@@ -29,15 +29,15 @@ public class Cave {
         }
     }
 
-    public Level getLevel(int index) {
+    Level getLevel(int index) {
         return levels.get(index);
     }
 
-    public int getSize() {
+    int getSize() {
         return levels.size();
     }
 
-    public void removeEmpty() {
+    void removeEmpty() {
         ArrayList<Level> empty = new ArrayList<>();
         for (Level level : levels) {
             if (level.getChestCount() == 0) {
